@@ -1,0 +1,24 @@
+<div class="col-md-6 col-md-offset-3" class="dialog" *ngIf="childVisible" >
+    <h1>{{title}}</h1>
+    <form name="form" (ngSubmit)="loginFom.form.valid && login()" #loginFom="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': loginFom.submitted && !userId.valid }">
+            <label for="userId">아이디</label>
+            <input type="text" class="form-control" name="userId" [(ngModel)]="user.userId" #userId="ngModel" required />
+            <div *ngIf="loginFom.submitted && !userId.valid" class="help-block">아이디는 필수에요!!</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': loginFom.submitted && !userPwd.valid }">
+            <label for="userPwd">비밀번호</label>
+            <input type="password" class="form-control" name="userPwd" [(ngModel)]="user.userPwd" #userPwd="ngModel" required />
+            <div *ngIf="loginFom.submitted && !userPwd.valid" class="help-block">비밀번호는 필수에요!!</div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <img *ngIf="loading" src="{{loadingImg}}" />
+            <a *ngIf="!loading" [routerLink]="['/userInsert']" (click)="close()" class="btn btn-link">Register</a>
+        </div>
+    </form>
+    <button *ngIf="childVisible" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+    
+</div>
+
+<div *ngIf="childVisible" class="overlay" (click)="close()"></div>
